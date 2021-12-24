@@ -1,0 +1,10 @@
+nest g controller product/product  --flat
+pipe : validate the data in the request
+Guard :  When the user is authenticated
+Controller : Route the request  to a particular functional
+service : Ru the bisness 
+
+
+
+typestack/class-validator
+typestack/class-transformer

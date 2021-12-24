@@ -1,0 +1,4 @@
+@hostname= http://localhost:7000
+### Check The server status
+
+@GET /home
