@@ -51,7 +51,9 @@ export class Web3Service {
         value: web3.utils.toWei('1', 'ether'),
         gasLimit: 22000,
       };
-      const transactionHash = await this.signAndSendTransaction(options);
+      const transactionHash: string = await this.signAndSendTransaction(
+        options,
+      );
       const currentBalance: Balance = await this.getAllBalances(list);
       const result = {
         previousBalanceOFSender: previousBalance.fromBalance,
