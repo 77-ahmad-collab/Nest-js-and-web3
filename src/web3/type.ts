@@ -13,6 +13,6 @@ export type Balance = {
 export type Options = {
   from: string;
   to: string;
-  value: number;
+  value: string;
   gasLimit: number;
 };

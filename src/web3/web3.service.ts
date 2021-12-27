@@ -1,12 +1,21 @@
 require('dotenv').config();
 import { Injectable } from '@nestjs/common';
 import { Balance, Options, ResponseObject } from './type';
-const privateKey = process.env.PRIVATE_KEY;
-// import Web3 from "web3";
+const privateKey: string =
+  '616ae957a82a7ffd850ab88cc873fa42e0c3f6dcc695f96896a2a14d474f6740';
 const Web3 = require('web3');
 const web3 = new Web3(
   'https://rinkeby.infura.io/v3/d8761b551d1f4423b12bcd298d66ed66',
 );
+
+interface signTransaction {
+  messageHash?: string;
+  r: string;
+  s: string;
+  v: string;
+  rawTransaction?: string;
+  transactionHash?: string;
+}
 
 @Injectable()
 export class Web3Service {
@@ -27,7 +36,7 @@ export class Web3Service {
   }
   async signAndSendTransaction(options: Options): Promise<string> {
     try {
-      const createTransaction = await web3.eth.accounts.signTransaction(
+      const createTransaction: any = await web3.eth.accounts.signTransaction(
         options,
         privateKey,
       );
@@ -44,7 +53,7 @@ export class Web3Service {
       const addressFrom = '0x0e103a14a73beaa028d2171870263622f272e613';
       const addressTo = '0x611485C1990cd77A7D67e46AA6D6e7F8359dF4ee';
       const list: string[] = [addressFrom, addressTo];
-      const previousBalance: Balance = await this.getAllBalances(list);
+      const previousBalance: Balance = await this.getAllBalances(list); //
       const options = {
         from: addressFrom,
         to: addressTo,
@@ -55,11 +64,21 @@ export class Web3Service {
         options,
       );
       const currentBalance: Balance = await this.getAllBalances(list);
+
+      const {
+        fromBalance: previousBalanceOFSender,
+        toBalance: previousBalanceOFReciever,
+      } = previousBalance;
+      const {
+        fromBalance: currentBalanceOFSender,
+        toBalance: currentBalanceOFReciever,
+      } = currentBalance;
+
       const result = {
-        previousBalanceOFSender: previousBalance.fromBalance,
-        previousBalanceOFReciever: previousBalance.toBalance,
-        currentBalanceOFSender: currentBalance.fromBalance,
-        currentBalanceOFReciever: currentBalance.toBalance,
+        previousBalanceOFSender,
+        previousBalanceOFReciever,
+        currentBalanceOFSender,
+        currentBalanceOFReciever,
         transactionHash: transactionHash,
       };
       return result;
