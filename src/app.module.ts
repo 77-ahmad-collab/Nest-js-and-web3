@@ -3,9 +3,23 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Web3Module } from './web3/web3.module';
 import { CpuModule } from './cpu/cpu.module';
-
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { ReportsModule } from './reports/reports.module';
+import { User } from './user/user.entity';
 @Module({
-  imports: [Web3Module, CpuModule],
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'sqlite',
+      database: 'db.sqLite',
+      entities: [User],
+      synchronize: true,
+    }),
+    Web3Module,
+    CpuModule,
+    UserModule,
+    ReportsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
