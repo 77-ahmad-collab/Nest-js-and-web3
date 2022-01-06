@@ -7,12 +7,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ReportsModule } from './reports/reports.module';
 import { User } from './user/user.entity';
+import { Report } from './reports/reports.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqLite',
-      entities: [User],
+      entities: [User, Report],
       synchronize: true,
     }),
     Web3Module,
