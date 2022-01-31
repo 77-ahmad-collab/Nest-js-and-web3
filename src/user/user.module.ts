@@ -9,7 +9,9 @@ import { Authorization } from './auth.service';
 @Module({
   imports: [
     TypeOrmModule.forFeature([User]),
-    MongooseModule.forFeature([{ name: 'test', schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: 'test', schema: UserSchema, collection: 'test' },
+    ]),
     MongooseModule.forRoot(
       'mongodb+srv://fypportal:ahmed123@cluster0.yvupc.mongodb.net/FYPTESTV1?retryWrites=true&w=majority',
     ),

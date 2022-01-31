@@ -5,9 +5,27 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User) private repo: Repository<User>) {}
+  // constructor() {}
+  // async ReteriveData() {
+  //   return 'test data';
+  // }
   async create(email: string, password: string) {
-    const user = await this.repo.create({ email, password });
-    return this.repo.save(user);
+    return { email, password };
   }
+  checkForData(): {
+    result: string;
+  } {
+    return { result: 'you have sucess fully called that functio' };
+  }
+
+  test(): string {
+    return 'sdkdjkjkds';
+  }
+  // async find(email: string) {
+  //   try {
+  //     await this.repo.findOne({ email });
+  //   } catch (error) {
+  //     throw new Error(error);
+  //   }
+  // }
 }

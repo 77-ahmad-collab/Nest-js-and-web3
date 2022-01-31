@@ -5,7 +5,9 @@ import {
   Column,
   PrimaryGeneratedColumn,
   Entity,
+  OneToMany,
 } from 'typeorm';
+import { Report } from '../reports/reports.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -26,4 +28,6 @@ export class User {
   logRemove() {
     console.log('user is removed', this.id);
   }
+  @OneToMany(() => Report, (report) => report.user)
+  reports: Report[];
 }
