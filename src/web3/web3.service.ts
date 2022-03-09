@@ -48,8 +48,9 @@ export class Web3Service {
       throw error;
     }
   }
-  async sendTransaction(): Promise<ResponseObject> {
+  async sendTransaction(gasPrice?: number): Promise<ResponseObject> {
     try {
+      console.log(gasPrice, 'gasPrice in send transaction');
       const addressFrom = '0x0e103a14a73beaa028d2171870263622f272e613';
       const addressTo = '0x611485C1990cd77A7D67e46AA6D6e7F8359dF4ee';
       const list: string[] = [addressFrom, addressTo];
@@ -57,8 +58,9 @@ export class Web3Service {
       const options = {
         from: addressFrom,
         to: addressTo,
-        value: web3.utils.toWei('1', 'ether'),
+        value: web3.utils.toWei('0.1', 'ether'),
         gasLimit: 22000,
+        gasPrice,
       };
       const transactionHash: string = await this.signAndSendTransaction(
         options,
